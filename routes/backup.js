@@ -6,10 +6,11 @@ const { exec } = require("child_process");
 
 /* GET backup */
 router.get("/", function (req, res, next) {
-  if (
-    req.body.secret ===
-    new Buffer.from((process.env.API_SECRET, "base64").toString("ascii"))
-  ) {
+  var secret = new Buffer.from(
+    (process.env.API_SECRET, "base64").toString("ascii")
+  );
+  console.log(secret);
+  if (req.body.secret === secret) {
     mysqldump({
       connection: {
         host: process.env.DB_HOST,
