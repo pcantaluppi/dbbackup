@@ -9,7 +9,7 @@ router.get("/", function (req, res, next) {
   var secret = new Buffer.from(
     (process.env.API_SECRET, "base64").toString("ascii")
   );
-  console.log(secret);
+  //console.log(secret);
   if (req.body.secret === secret) {
     mysqldump({
       connection: {
