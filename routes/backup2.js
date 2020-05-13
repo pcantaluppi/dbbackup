@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 var express = require("express");
 var router = express.Router();
 var mysqldump = require("mysqldump");
@@ -7,7 +8,7 @@ const { exec } = require("child_process");
 
 async function take_a_dump() {
   try {
-    mysqldump({
+    await mysqldump({
       connection: {
         host: process.env.DB_HOST,
         user: "root",
@@ -25,7 +26,7 @@ async function take_a_dump() {
 
 /* GET backup */
 router.get("/", function (req, res, next) {
-  await.take_a_dump(),
+  take_a_dump(),
     res.download("/db/dump.sql.gz", "dump.sql.gz", function (err) {});
 });
 
