@@ -7,27 +7,26 @@ var mysqldump = require("mysqldump");
 const { exec } = require("child_process");
 
 async function take_a_dump() {
-  try {
-    await mysqldump({
-      connection: {
-        host: process.env.DB_HOST,
-        user: "root",
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME,
-      },
-      dumpToFile: "/db/dump.sql.gz",
-      compressFile: true,
-    });
-  } catch (ex) {
-    JSON.stringify({ status: 500, error: ex, response: null });
-  }
-  return;
+  await mysqldump({
+    connection: {
+      host: process.env.DB_HOST,
+      user: "root",
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+    },
+    dumpToFile: "/db/dump.sql.gz",
+    compressFile: true,
+  });
 }
 
 /* GET backup */
 router.get("/", function (req, res, next) {
-  take_a_dump(),
-    res.download("/db/dump.sql.gz", "dump.sql.gz", function (err) {});
+  try {
+    take_a_dump(),
+      res.download("/db/dump.sql.gz", "dump.sql.gz", function (err) {});
+  } catch (ex) {
+    JSON.stringify({ status: 500, error: ex, response: null });
+  }
 });
 
 module.exports = router;
