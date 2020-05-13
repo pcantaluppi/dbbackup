@@ -18,10 +18,11 @@ router.get("/", function (req, res, next) {
       },
       dumpToFile: "/db/dump.sql.gz",
       compressFile: true,
-    }),
-      res.download("/db/dump.sql.gz", "dump.sql.gz", function (err) {});
+    });
   } catch (ex) {
     JSON.stringify({ status: 500, error: ex, response: null });
+  } finally {
+    res.download("/db/dump.sql.gz", "dump.sql.gz", function (err) {});
   }
 });
 
