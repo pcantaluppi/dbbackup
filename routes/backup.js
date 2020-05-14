@@ -8,7 +8,7 @@ const { exec } = require("child_process");
 /* GET backup */
 router.get("/", function (req, res, next) {
   console.log(Buffer.from(process.env.API_SECRET, "base64"));
-  res.download("./dump.sql.gz", "dump.sql.gz", function (err) {});
+  res.download("/db/dump.sql.gz", "dump.sql.gz", function (err) {});
 });
 
 module.exports = router;
