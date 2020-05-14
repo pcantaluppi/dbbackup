@@ -26,7 +26,7 @@ async function take_a_dump() {
 
 /* GET backup */
 router.get("/", function (req, res, next) {
-  await take_a_dump(),
+  take_a_dump(),
     res.download("/db/dump.sql.gz", "dump.sql.gz", function (err) {});
 });
 
