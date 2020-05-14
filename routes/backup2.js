@@ -13,7 +13,7 @@ router.get("/", function (req, res, next) {
     connection: {
       host: process.env.DB_HOST,
       user: "root",
-      password: process.env.DB_PASSWORD,
+      password: process.env.DB_ROOT_PASSWORD,
       database: process.env.DB_NAME,
     },
     dumpToFile: "/db/dump.sql.gz",
