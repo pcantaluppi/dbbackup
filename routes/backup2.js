@@ -12,17 +12,19 @@ async function take_a_dump() {
       user: "root",
       password: process.env.DB_ROOT_PASSWORD,
       database: process.env.DB_NAME,
-      host: process.env.DB_HOST
+      host: process.env.DB_HOST,
     },
     dumpToFile: "/db/dump.sql.gz",
-    compressFile: true
+    compressFile: true,
   });
+  console.log("backup done");
 }
 
 /* GET backup */
 router.get("/", async (req, res, next) => {
   await take_a_dump(() => {
-    res.download("/db/dump.sql.gz", "dump.sql.gz", function(err) {});
+    res.download("/db/dump.sql.gz", "dump.sql.gz", function (err) {});
+    console.log("download ready");
   });
 });
 
