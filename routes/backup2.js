@@ -6,8 +6,9 @@ var mysqldump = require("mysqldump");
 
 const { exec } = require("child_process");
 
-async function take_a_dump() {
-  await mysqldump({
+/* GET backup */
+router.get("/", async (req, res, next) => {
+  mysqldump({
     connection: {
       user: "root",
       password: process.env.DB_ROOT_PASSWORD,
@@ -16,16 +17,13 @@ async function take_a_dump() {
     },
     dumpToFile: "/db/dump.sql.gz",
     compressFile: true,
-  });
-  console.log("backup done");
-}
-
-/* GET backup */
-router.get("/", async (req, res, next) => {
-  await take_a_dump(() => {
-    res.download("/db/dump.sql.gz", "dump.sql.gz", function (err) {});
-    console.log("download ready");
-  });
+  })
+    .then(() => {
+      res.download("/db/dump.sql.gz", "dump.sql.gz", function (err) {});
+    })
+    .catch((err) => {
+      JSON.stringify({ status: 500, error: err, response: null });
+    });
 });
 
 module.exports = router;
