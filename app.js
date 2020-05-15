@@ -9,7 +9,6 @@ var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
 var backupRouter = require("./routes/backup");
-var backupRouter2 = require("./routes/backup2");
 
 var app = express();
 
@@ -34,7 +33,6 @@ app.use(express.static(path.join(__dirname, "public")));
 // routes
 app.use("/", indexRouter);
 app.use("/api/v1/backup", backupRouter);
-app.use("/api/v2/backup", backupRouter2);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
