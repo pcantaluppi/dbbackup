@@ -50,26 +50,4 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-var CronJob = require("cron").CronJob;
-var job = new CronJob(
-  "* 30 * * * *",
-  function () {
-    console.log("Database backup..");
-    mysqldump({
-      connection: {
-        user: "root",
-        password: process.env.DB_ROOT_PASSWORD,
-        database: process.env.DB_NAME,
-        host: process.env.DB_HOST,
-      },
-      dumpToFile: "/db/dump.sql.gz",
-      compressFile: true,
-    });
-  },
-  null,
-  true,
-  "Europe/Zurich"
-);
-job.start();
-
 module.exports = app;

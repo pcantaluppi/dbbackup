@@ -84,3 +84,28 @@ function onListening() {
   var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
   debug("Listening on " + bind);
 }
+
+/**
+ * Cron Job for DB Backup
+ */
+
+var cron = require("node-cron");
+var mysqldump = require("mysqldump");
+
+cron.schedule("* * * * *", () => {
+  console.log("Database backup..");
+  try {
+    mysqldump({
+      connection: {
+        user: "root",
+        password: process.env.DB_ROOT_PASSWORD,
+        database: process.env.DB_NAME,
+        host: process.env.DB_HOST,
+      },
+      dumpToFile: "/db/dump.sql.gz",
+      compressFile: true,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+});

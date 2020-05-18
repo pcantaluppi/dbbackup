@@ -2,7 +2,6 @@ require("dotenv").config();
 
 var express = require("express");
 var router = express.Router();
-var mysqldump = require("mysqldump");
 
 /* GET backup */
 router.get("/", (req, res, next) => {
