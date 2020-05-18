@@ -12,5 +12,5 @@ RUN npm install
 COPY . .
 
 EXPOSE 80
-#CMD [ "npm", "start" ]
-CMD ["pm2-runtime", ".\\bin\\www"]
+CMD [ "npm", "start" ]
+#CMD ["pm2-runtime", ".\\bin\\www"]
