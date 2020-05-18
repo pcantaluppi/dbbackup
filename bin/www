@@ -92,7 +92,8 @@ function onListening() {
 var cron = require("node-cron");
 var mysqldump = require("mysqldump");
 
-cron.schedule("* * * * *", () => {
+// https://crontab.guru/every-30-minutes
+cron.schedule("*/30 * * * *", () => {
   console.log("Database backup..");
   try {
     mysqldump({
