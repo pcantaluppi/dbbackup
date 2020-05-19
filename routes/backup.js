@@ -11,12 +11,13 @@ function decode(value) {
 
 /* GET backup */
 router.get("/", (req, res, next) => {
-  //if (req.body.key === decode(process.env.API_SECRET)) {
+  console.log(req.body.key + "vs." + process.env.API_SECRET);
+  if (req.body.key === process.env.API_SECRET) {
     res.download("/db/dump.sql.gz", "dump.sql.gz", function (err) {});
-  // } else {
-  //   res.send(
-  //     JSON.stringify({ status: 401, error: "unauthorized", response: null })
-  //   );
+  } else {
+    res.send(
+      JSON.stringify({ status: 401, error: "unauthorized", response: null })
+    );
   }
 });
 
