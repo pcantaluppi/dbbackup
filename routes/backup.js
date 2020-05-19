@@ -11,7 +11,8 @@ function decode(value) {
 
 /* GET backup */
 router.get("/", (req, res, next) => {
-  console.log(req.body.key + "vs." + process.env.API_SECRET);
+  console.log("body:" + req.body);
+  console.log(req.body.key + " vs. " + process.env.API_SECRET);
   if (req.body.key === process.env.API_SECRET) {
     res.download("/db/dump.sql.gz", "dump.sql.gz", function (err) {});
   } else {
